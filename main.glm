@@ -2,5 +2,68 @@
 #model get IEEE/123
 #endif
 #include "123.glm"
-#output "IEEE-123-voltage-profile.png" -t profile -l 10
 
+// Task 1 - Setup building thermostat schedule
+schedule setpoint
+{
+    * 7-17 * * 1-5 22.0;
+    * 18-6 * 10-4 1-5 18.0;
+    * 18-6 * 5-9 1-5 24.0;
+    * * * 10-4 6-0 18.0;
+    * * * 5-9 6-0 24.0; 
+}
+
+// Task 2 - Setup data recording module
+module tape
+{
+    csv_header_type NAME;
+}
+
+// Task 3 - Add commercial building to load 1
+object building
+{
+    name building_1;
+    parent load_1;
+    building_type RETAIL;
+
+    // inputs
+    NH 4;
+    floor_area 150 m^2;
+    TS setpoint;
+
+    temperature_source "forecast.temperature";
+    electric_heat TRUE;
+    electrification_fraction 0.5;
+    electrification_efficiency 2.0;
+    occupancy 4;
+    PV 200 sf;
+    PX 10 kW;
+    BS 10 kWh;
+    PG 10 kW;
+    IC UNITY;
+
+    // Task 4 - Add recorder to building
+    object recorder
+    {
+        file "building_1.csv";
+        property measured_real_power,measured_reactive_power;
+        interval 1h;
+    };
+}
+
+// Task 5 - Use weather forecast
+#python -m noaa_forecast -p=37.5,-122.4 -c=forecast.csv -n=forecast -g=forecast.glm
+#include "forecast.glm"
+
+// Task 6 - Setup clock
+clock
+{
+    timezone "${NOAA_FORECAST_TIMEZONE}";
+    starttime "${NOAA_FORECAST_STARTTIME}";
+    stoptime "${NOAA_FORECAST_STOPTIME}";
+}
+
+// Task 7 - Plot output data
+#on_exit 0 gridlabd plot -i=building_1.csv -o=building_1.png --plot:grid
+
+#output "IEEE-123-voltage-profile.png" -t profile -l 10
