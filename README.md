@@ -26,3 +26,7 @@ Output data can be plotted using the `plot` subcommand. The `plot` is run when t
 
 * [Tape module](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module&doc=/Module/Tape.md)
 * [Recorder object](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Tape&doc=/Module/Tape/Recorder.md)
+
+# Next Lesson
+
+* [Lesson 9 - Importing Data](../../../lesson-9)
