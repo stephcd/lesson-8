@@ -39,3 +39,9 @@ jobs:
       with:
         name: Building 1 load
         path: building_1.png
+
+    - name: Save building loadshape
+      uses: actions/upload-artifact@v3
+      with:
+        name: Building 2 load
+        path: building_2.png
