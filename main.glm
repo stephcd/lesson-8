@@ -1,4 +1,4 @@
-#ifmissing "123.glm"
+#ifmissing "123.glm" 
 #model get IEEE/123
 #endif
 #include "123.glm"
@@ -56,11 +56,11 @@ object building
 {
     name building_2;
     parent load_2;
-    building_type RESIDENTIAL-HOUSE;
+    building_type HOUSE;
 
     // inputs
     NH 4;
-    floor_area 225 m^2; //avg house size in USA
+    floor_area 150 m^2
     TS setpoint;
 
     temperature_source "forecast.temperature";
@@ -74,6 +74,7 @@ object building
     PG 10 kW;
     IC UNITY;
 
+    object recorder
     {
         file "building_2.csv";
         property measured_real_power,measured_reactive_power;
@@ -95,5 +96,6 @@ clock
 
 // Task 7 - Plot output data
 #on_exit 0 gridlabd plot -i=building_1.csv -o=building_1.png --plot:grid
+#on_exit 0 gridlabd plot -i=building_2.csv -o=building_2.png --plot:grid
 
 #output "IEEE-123-voltage-profile.png" -t profile -l 10
