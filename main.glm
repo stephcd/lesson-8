@@ -51,6 +51,36 @@ object building
     };
 }
 
+//Exercise - plot load of residential building
+object building
+{
+    name building_2;
+    parent load_2;
+    building_type HOUSE;
+
+    // inputs
+    NH 4;
+    floor_area 225 m^2; //avg house size in USA
+    TS setpoint;
+
+    temperature_source "forecast.temperature";
+    electric_heat TRUE;
+    electrification_fraction 0.5;
+    electrification_efficiency 2.0;
+    occupancy 4;
+    PV 200 sf;
+    PX 10 kW;
+    BS 10 kWh;
+    PG 10 kW;
+    IC UNITY;
+
+    {
+        file "building_2.csv";
+        property measured_real_power,measured_reactive_power;
+        interval 1h;
+    };
+}
+
 // Task 5 - Use weather forecast
 #python -m noaa_forecast -p=37.5,-122.4 -c=forecast.csv -n=forecast -g=forecast.glm
 #include "forecast.glm"
