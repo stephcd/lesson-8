@@ -6,7 +6,7 @@
 // Task 1 - Setup building thermostat schedule
 schedule setpoint
 {
-    * 7-17 * * 1-5 22.0;
+    * 7-17 * * 1-5 22.0; 
     * 18-6 * 10-4 1-5 18.0;
     * 18-6 * 5-9 1-5 24.0;
     * * * 10-4 6-0 18.0;
