@@ -56,7 +56,7 @@ object building
 {
     name building_2;
     parent load_2;
-    building_type HOUSE;
+    building_type RESIDENTIAL-HOUSE;
 
     // inputs
     NH 4;
